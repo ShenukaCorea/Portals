@@ -1,0 +1,59 @@
+```javascript
+//analog pins for the sliding potentiometers
+const int slide1Pin = A0;
+const int slide2Pin = A1;
+const int slide3Pin = A2;
+const int slide4Pin = A3;
+const int slide5Pin = A4;
+const int slide6Pin = A5;
+
+//pin for the button
+const int buttonPin = 2;
+
+//boolean to change if the button is available to be pressed or not
+bool isAvailable = true;
+
+//strings to send to Processing
+String slide1;
+String slide2;
+String slide3;
+String slide4;
+String slide5;
+String slide6;
+
+void setup() {
+
+  Serial.begin(9600);
+  pinMode(buttonPin, INPUT);
+}
+
+void loop() {
+
+//bool to check if to send that the button has been pressed
+ bool sendPressed = false;
+
+ //check if the button has been pressed
+  if(digitalRead(2) == HIGH){
+
+    if(isAvailable == true){
+      isAvailable = false;
+      sendPressed = true;
+    }
+  }else{
+    //says that the button is still available to be pressed if the button has not been pressed already
+    isAvailable = true;
+  }
+
+//prints the values of the slider positions and if the button has been pressed or not
+  slide1 = analogRead(slide1Pin);
+  slide2 = analogRead(slide2Pin);
+  slide3 = analogRead(slide3Pin);
+  slide4 = analogRead(slide4Pin);
+  slide5 = analogRead(slide5Pin);
+  slide6 = analogRead(slide6Pin);
+  Serial.println(slide1 + "," + slide2 + "," + slide3 + "," + slide4 + "," + slide5 + "," + slide6 + ","+sendPressed);
+
+  delay(100);
+
+}
+```
